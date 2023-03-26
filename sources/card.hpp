@@ -1,5 +1,7 @@
 #include <string>
 #include <iostream>
+#pragma once
+#define CARD_HPP
 using namespace std;
 
 namespace ariel

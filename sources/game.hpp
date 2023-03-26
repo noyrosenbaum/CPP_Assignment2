@@ -2,25 +2,21 @@
 #include <iostream>
 #include "player.hpp"
 #include "card.hpp"
+#define GAME_HPP
+#pragma once
 using namespace std;
 
 namespace ariel
 {
     class game
     {
-    private:
-        player &p1;
-        player &p2;
-
-    public:
-        game(player 1, player 2);
-        int getValue()
-        {
-            return value;
-        }
-        string getSign()
-        {
-            return sign;
-        }
+        game(Player &p1, Player &p2);
+        void playTurn();
+        void printLastTurn();
+        void playAll();
+        void printWiner();
+        void printLog();
+        void printStats();
     };
+
 }
