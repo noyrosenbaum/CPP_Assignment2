@@ -3,13 +3,18 @@
 using namespace std;
 namespace ariel
 {
+    string name;
     Player::Player(string name)
     {
         this->name = name;
     }
+    string getName()
+    {
+        return name;
+    }
     int Player::stacksize()
     {
-        return 0;
+        return pile;
     }
     int Player::cardsTaken()
     {

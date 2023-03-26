@@ -10,4 +10,12 @@ namespace ariel
         this->sign = sign;
         this->value = value;
     }
+    string card::getSign()
+    {
+        return sign;
+    }
+    int card::getValue()
+    {
+        return value;
+    }
 }

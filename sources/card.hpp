@@ -14,13 +14,7 @@ namespace ariel
 
     public:
         card(string sign, int value);
-        int getValue()
-        {
-            return value;
-        }
-        string getSign()
-        {
-            return sign;
-        }
+        int getValue();
+        string getSign();
     };
 }

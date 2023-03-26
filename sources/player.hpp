@@ -7,10 +7,13 @@ namespace ariel
 {
     class Player
     {
-    public:
+    private:
         string name;
+        int pile = 26;
+    public:
         Player(string name);
-        int stacksize();
+        int stacksize(); // player's current pile
         int cardsTaken();
+        string getName();
     };
 };
