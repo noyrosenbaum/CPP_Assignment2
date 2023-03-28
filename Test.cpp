@@ -3,6 +3,29 @@
 #include "./sources/player.hpp"
 #include "./sources/card.hpp"
 
+// Tests using Demo's functionality only
+
+/**
+ * Player - tests
+ * constructor:
+ * name - enter/initiale name, when it is NULL, another type like integer
+ * stack/pile - check it we have for each player 26 cards - stack size
+ * Demo's functions:
+ * stacksize - should be 21 at the end of a game or less so after we run playTurn we should get <=21
+ * cardsTaken - cant be less than 0
+ * 
+ * Game - tests
+ * constructor:
+ * check if we entered 2 players by the rules of players
+ * Demo's functions:
+ * playTurn - 
+ * 
+ **/ 
+
+
+// Game - tests
+
+
 // if 2 cards are equal we have a war
 // add cards to war pile
 // if both players have at least another card
@@ -29,28 +52,6 @@ TEST_CASE("Test Player Class") {
         p.addcardToStack(c1);
         CHECK_EQ(p.playcard(), c1);
         CHECK_EQ(p.stacksize(), 25);
-    }
-}
-
-TEST_CASE("Test card Class") {
-    SUBCASE("Test card values") {
-        card c1(card::CLUBS, 5);
-        card c2(card::HEARTS, card::KING);
-        card c3(card::DIAMONDS, card::ACE);
-        CHECK_EQ(c1.getValue(), 5);
-        CHECK_EQ(c2.getValue(), card::KING);
-        CHECK_EQ(c3.getValue(), card::ACE);
-    }
-
-    SUBCASE("Test card suits") {
-        card c1(card::CLUBS, 5);
-        card c2(card::HEARTS, card::KING);
-        card c3(card::DIAMONDS, card::ACE);
-        card c4(card::SPADES, 8);
-        CHECK_EQ(c1.getSuit(), card::CLUBS);
-        CHECK_EQ(c2.getSuit(), card::HEARTS);
-        CHECK_EQ(c3.getSuit(), card::DIAMONDS);
-        CHECK_EQ(c4.getSuit(), card::SPADES);
     }
 }
 

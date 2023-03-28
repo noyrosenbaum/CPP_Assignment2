@@ -8,13 +8,20 @@ namespace ariel
 {
     class card
     {
-    private:
-        string sign;
-        int value;
-
     public:
+        enum Sign
+        {
+            HEARTS,
+            CLUBS,
+            DIAMONDS,
+            SPADES
+        };
+    // we have 13 values - check 
         card(string sign, int value);
         int getValue();
         string getSign();
+    private:
+        Sign sign;
+        int value;
     };
 }
