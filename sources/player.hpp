@@ -9,11 +9,11 @@ namespace ariel
     {
     private:
         string name;
-        int pile = 26;
+        int pile;
     public:
         Player(string name);
         int stacksize(); // player's current pile
-        int cardsTaken();
+        int cardesTaken();
         string getName();
     };
 };

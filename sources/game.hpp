@@ -8,13 +8,13 @@ using namespace std;
 
 namespace ariel
 {
-    class game
+    class Game
     {
     private:
-        Player *p1;
-        Player *p2;
+        Player p1;
+        Player p2;
     public:
-        game(Player &p1, Player &p2);
+        Game(Player &p1, Player &p2);
         void playTurn();
         void printLastTurn();
         void playAll();
@@ -22,5 +22,4 @@ namespace ariel
         void printLog();
         void printStats();
     };
-
 }

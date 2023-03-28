@@ -16,7 +16,7 @@ namespace ariel
     {
         return pile;
     }
-    int Player::cardsTaken()
+    int Player::cardesTaken()
     {
         return 0;
     }
