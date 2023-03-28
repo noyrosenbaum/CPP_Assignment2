@@ -1,7 +1,8 @@
-#include <string>
-#define PLAYER_HPP
-#include "card.hpp"
 #pragma once
+
+#include <string>
+#include "card.hpp"
+
 using namespace std;
 namespace ariel
 {
