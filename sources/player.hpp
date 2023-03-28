@@ -11,6 +11,7 @@ namespace ariel
     private:
         string name;
         int pile;
+
     public:
         Player(string name);
         int stacksize(); // player's current pile

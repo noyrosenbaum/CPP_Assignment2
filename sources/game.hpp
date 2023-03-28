@@ -9,17 +9,17 @@ namespace ariel
 {
     class Game
     {
-        private:
-            Player first_player;
-            Player seconds_player;
+    private:
+        Player first_player;
+        Player second_player;
 
-        public:
-            Game(Player &p1, Player &p2);
-            void playTurn();
-            void printLastTurn();
-            void playAll();
-            void printWiner();
-            void printLog();
-            void printStats();
-        };
+    public:
+        Game(Player &p1, Player &p2);
+        void playTurn();
+        void printLastTurn();
+        void playAll();
+        void printWiner();
+        void printLog();
+        void printStats();
+    };
 }

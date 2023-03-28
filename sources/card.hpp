@@ -4,6 +4,5 @@ namespace ariel
 {
     class card
     {
-    
     };
 }
