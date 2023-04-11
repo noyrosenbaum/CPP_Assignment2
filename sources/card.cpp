@@ -77,7 +77,3 @@ string Card::getSign()
         return "Hearts";
     }
 };
-bool identical(Card &card1, Card &card2)
-{
-    return card1.getSign() == card2.getSign() && card1.getValue() == card2.getValue();
-}

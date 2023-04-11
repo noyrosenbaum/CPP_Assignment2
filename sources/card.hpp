@@ -36,7 +36,6 @@ namespace ariel
         Card(sign Sign, values Value);
         string getValue();
         string getSign();
-        bool identical(Card &card1, Card &card2);
     };
 
 }

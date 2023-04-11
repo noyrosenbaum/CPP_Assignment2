@@ -8,6 +8,9 @@ namespace ariel
     {
         this->name = name;
         this->pile.clear();
+        this->cardisTaken = 0;
+        this->winCard = 0;
+        this->isParticipate = false;
     }
 
     string Player::getName()
@@ -22,11 +25,11 @@ namespace ariel
 
     int Player::cardesTaken()
     {
-        return 0;
+        return this->cardisTaken;
     }
     Card Player::removeTopCard()
     {
-        if(!this->pile.empty())
+        if (!this->pile.empty())
         {
             Card &top = this->pile.back();
             this->pile.pop_back();

@@ -15,6 +15,8 @@ namespace ariel
         Player second_player;
         vector<string> turn;
         vector<Card> deck;
+        int turnCounter;
+        int drawCounter;
 
     public:
         Game(Player &p1, Player &p2);
@@ -27,5 +29,6 @@ namespace ariel
         void shuffle(vector<Card> &deck);
         void devide(vector<Card> &deck);
         void initializeDeck(vector<Card> &deck);
+        int compareTo(Card &card1, Card &card2);
     };
 }
