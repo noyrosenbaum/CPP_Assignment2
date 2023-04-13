@@ -9,6 +9,7 @@ using namespace ariel;
 Game::Game(Player &p1, Player &p2) : first_player(p1), second_player(p2)
 {
     turnCounter = 0;
+    winCards.empty();
     this->drawCounter = 0;
     this->first_player = p1;
     this->second_player = p2;
@@ -24,16 +25,113 @@ void Game::playTurn()
     if (this->first_player.stacksize() == 0 || this->second_player.stacksize() == 0)
         throw "Game has ended\n";
     printWiner();
-
+    // Start a normal turn
     this->turnCounter++;
     Card card1 = this->first_player.removeTopCard();
     Card card2 = this->second_player.removeTopCard();
+    winCards.push_back(card1);
+    winCards.push_back(card2);
     string log = this->first_player.getName() + "played " + card1.getSign() + this->second_player.getName() + "played " + card2.getSign();
     turn.push_back(log);
     int result = compareTo(card1, card2);
+    // Tie
     if (result == 0)
     {
+        cout << "Draw! Each player puts one card face down and draws another." << endl;
         this->drawCounter++;
+        if (this->first_player.stacksize() == 0 || this->second_player.stacksize() == 0)
+            return;
+
+        // Draw round
+        Card hiddenCard1 = this->first_player.removeTopCard();
+        Card hiddenCard2 = this->second_player.removeTopCard();
+        Card openCard1 = this->first_player.removeTopCard();
+        Card openCard2 = this->second_player.removeTopCard();
+        int tieResult = compareTo(openCard1, openCard2);
+        // Tie once again
+        if (tieResult == 0)
+        {
+            cout << "Draw! Continuing with another draw round..." << endl;
+            this->drawCounter++;
+            if (this->first_player.stacksize() > 0)
+            {
+                Card newCard1 = this->first_player.removeTopCard();
+                this->first_player.setPile(newCard1);
+            }
+            if (this->second_player.stacksize() > 0)
+            {
+                Card newCard2 = this->second_player.removeTopCard();
+                this->second_player.setPile(newCard2);
+            }
+            playTurn();
+            return;
+        }
+        // First player wins
+        if (tieResult == 1)
+        {
+            // Card newCard1 = this->first_player.removeTopCard();
+            // Card newCard2 = this->second_player.removeTopCard();
+            for (Card win : winCards)
+            {
+                this->first_player.setPile(win);
+            }
+            winCards.clear();
+        }
+        // Second player wins
+        else if (tieResult == -1)
+        {
+            lesserCard = hiddenCard1;
+            greaterCard = hiddenCard2;
+            newCard1 = this->second_player.removeTopCard();
+            newCard2 = this->first_player.removeTopCard();
+        }
+        else
+        {
+            throw "Unexpected result from compareTo function";
+        }
+
+        log += "Draw: " + this->first_player.getName() + " put " + hiddenCard1.getSign() + " face down and drew " + newCard1.getSign() + ", " + this->second_player.getName() + " put " + hiddenCard2.getSign() + " face down and drew " + newCard2.getSign() + ". ";
+        int result2 = compareTo(newCard1, newCard2);
+        if (result2 == 1)
+        {
+            cout << this->first_player.getName() << " won the draw!" << endl;
+            this->first_player.setPile(card1);
+            this->first_player.setPile(card2);
+            this->first_player.setPile(hiddenCard1);
+            this->first_player.setPile(hiddenCard2);
+            this->first_player.setPile(newCard1);
+            this->first_player.setPile(newCard2);
+        }
+        else if (result2 == -1)
+        {
+            cout << this->second_player.getName() << " won the draw!" << endl;
+            this->second_player.setPile(card1);
+            this->second_player.setPile(card2);
+            this->second_player.setPile(hiddenCard1);
+            this->second_player.setPile(hiddenCard2);
+            this->second_player.setPile(newCard1);
+            this->second_player.setPile(newCard2);
+        }
+        else
+        {
+            throw "Unexpected result from compareTo function";
+        }
+    }
+    else if (result == 1)
+    {
+        cout << this->first_player.getName() << " won the turn!" << endl;
+        this->first_player.setPile(card1);
+        this->first_player.setPile(card2);
+    }
+    else if (result == -1)
+    {
+        cout << this->second_player.getName() << " won the turn!" << endl;
+        this->second_player.setPile(card1);
+        this->second_player.setPile(card2);
+    }
+    else
+    {
+        throw "Unexpected result from compareTo function";
     }
 };
 void Game::printLastTurn()

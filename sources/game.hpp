@@ -15,6 +15,7 @@ namespace ariel
         Player second_player;
         vector<string> turn;
         vector<Card> deck;
+        vector<Card> winCards;
         int turnCounter;
         int drawCounter;
 
