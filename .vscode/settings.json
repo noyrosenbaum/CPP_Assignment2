@@ -2,7 +2,8 @@
     "files.associations": {
         "*.tcc": "cpp",
         "functional": "cpp",
-        "ciso646": "cpp"
+        "ciso646": "cpp",
+        "iostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

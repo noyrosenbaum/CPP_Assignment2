@@ -20,6 +20,8 @@ namespace ariel
         int drawCounter;
         int cardCounter1;
         int cardCounter2;
+        int winCounter1;
+        int winCounter2;
 
     public:
         Game(Player &p1, Player &p2);

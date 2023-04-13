@@ -11,6 +11,8 @@ Game::Game(Player &p1, Player &p2) : first_player(p1), second_player(p2)
     turnCounter = 0;
     cardCounter1 = 0;
     cardCounter2 = 0;
+    winCounter1 = 0;
+    winCounter2 = 0;
     winCards.empty();
     this->drawCounter = 0;
     this->first_player = p1;
@@ -34,7 +36,7 @@ void Game::playTurn()
     // Push cards into winner's card pile per turn
     winCards.push_back(card1);
     winCards.push_back(card2);
-    string log = this->first_player.getName() + "played " + card1.getSign() + this->second_player.getName() + "played " + card2.getSign();
+    string log = this->first_player.getName() + "played " + card1.getValue() + "of " + card1.getSign() + this->second_player.getName() + "played " + card2.getValue() + "of " + card2.getSign();
     turn.push_back(log);
     // Regular comparison - 1 for player 1, 0 for tie, -1 for player 2 per turn
     int result = compareTo(card1, card2);
@@ -42,6 +44,7 @@ void Game::playTurn()
     if (result == 0)
     {
         cout << "Draw! Each player puts one card face down and draws another." << endl;
+        turn.push_back("draw. ");
         this->drawCounter++;
         if (this->first_player.stacksize() == 0 || this->second_player.stacksize() == 0)
             return;
@@ -77,7 +80,9 @@ void Game::playTurn()
                         this->first_player.setPile(win);
                     }
                     cardCounter1 += winCards.size();
+                    winCounter1++;
                     winCards.clear();
+                    turn.push_back(this->first_player.getName() + "wins.");
                     return;
                 }
                 else if (compareTo(newCard1, newCard2) == -1)
@@ -87,7 +92,9 @@ void Game::playTurn()
                         this->second_player.setPile(win);
                     }
                     cardCounter2 += winCards.size();
+                    winCounter2++;
                     winCards.clear();
+                    turn.push_back(this->second_player.getName() + "wins.");
                     return;
                 }
             }
@@ -105,7 +112,9 @@ void Game::playTurn()
                 this->first_player.setPile(win);
             }
             cardCounter1 += winCards.size();
+            winCounter1++;
             winCards.clear();
+            turn.push_back(this->first_player.getName() + "wins.");
         }
         // Second player wins the tie
         else if (tieResult == -1)
@@ -117,7 +126,9 @@ void Game::playTurn()
                 this->second_player.setPile(win);
             }
             cardCounter2 += winCards.size();
+            winCounter2++;
             winCards.clear();
+            turn.push_back(this->second_player.getName() + "wins.");
         }
         else
         {
@@ -160,7 +171,9 @@ void Game::playTurn()
             this->first_player.setPile(win);
         }
         cardCounter1 += winCards.size();
+        winCounter1++;
         winCards.clear();
+        turn.push_back(this->first_player.getName() + "wins.");
     }
     // Second player wins normal turn
     else if (result == -1)
@@ -171,7 +184,9 @@ void Game::playTurn()
             this->second_player.setPile(win);
         }
         cardCounter2 += winCards.size();
+        winCounter2++;
         winCards.clear();
+        turn.push_back(this->second_player.getName() + "wins.");
     }
     else
     {
@@ -213,12 +228,25 @@ void Game::printWiner()
 };
 void Game::printLog()
 {
-    for (auto log : turn)
+    for (auto &log : turn)
     {
-        cout << log;
+        cout << log << endl;
     }
 };
-void Game::printStats(){};
+void Game::printStats()
+{
+    cout << "First player: " << first_player.getName() << "stats: " << endl;
+    cout << "Win rate: " << (double)winCounter1 / turnCounter << endl;
+    cout << "cards won: " << first_player.cardesTaken() << endl;
+    cout << "draw rate: " << (double)drawCounter / turnCounter << endl;
+    cout << "Amount of draws: " << drawCounter << endl;
+
+    cout << "Second player stats: " << second_player.getName() << endl;
+    cout << "Win rate: " << (double)winCounter2 / turnCounter << endl;
+    cout << "cards won: " << second_player.cardesTaken() << endl;
+    cout << "draw rate: " << (double)drawCounter / turnCounter << endl;
+    cout << "Amount of draws: " << drawCounter << endl;
+};
 void Game::shuffle(vector<Card> &deck)
 {
     random_shuffle(deck.begin(), deck.end());
