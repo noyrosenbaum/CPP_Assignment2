@@ -305,4 +305,6 @@ int compareTo(Card &card1, Card &card2)
         else
             return 1;
     }
+    else
+        throw "Comparison error";
 }
