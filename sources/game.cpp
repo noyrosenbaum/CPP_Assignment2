@@ -176,48 +176,61 @@ void Game::printLastTurn()
         string lastTurn = turn.back();
         cout << lastTurn << endl;
     }
-    cout << "No move was made" << endl;
+    throw "No move was made";
 };
 void Game::playAll()
 {
-    while (!(this->first_player.stacksize() == 0) || !(this->second_player.stacksize() == 0))
+    while (this->first_player.stacksize() != 0 || this->second_player.stacksize() != 0)
     {
         playTurn();
     }
 };
 void Game::printWiner()
 {
-    if (first_player.stacksize() > second_player.stacksize())
+
+    if (first_player.cardesTaken() > second_player.cardesTaken())
     {
-        cout << "Winner is first player" << endl;
+        cout << "Winner is " << first_player.getName() << endl;
     }
-    else if (first_player.stacksize() < second_player.stacksize())
+    else if (first_player.cardesTaken() < second_player.cardesTaken())
     {
-        cout << "Winner is second player" << endl;
+        cout << "Winner is " << second_player.getName() << endl;
     }
     else
-        cout << "No one wins" << endl;
+        cout << "Game has ended" << endl;
+
+    throw "Unable to print winner";
 };
 void Game::printLog()
 {
-    for (auto &log : turn)
+    if (!turn.empty())
     {
-        cout << log << endl;
+        for (auto &log : turn)
+        {
+            cout << log << endl;
+        }
     }
+    else
+        throw "There are no logs to print";
 };
 void Game::printStats()
 {
-    cout << "First player: " << first_player.getName() << "stats: " << endl;
-    cout << "Win rate: " << (double)winCounter1 / turnCounter << endl;
-    cout << "cards won: " << first_player.cardesTaken() << endl;
-    cout << "draw rate: " << (double)drawCounter / turnCounter << endl;
-    cout << "Amount of draws: " << drawCounter << endl;
+    if (this->turnCounter != 0)
+    {
+        cout << "First player: " << first_player.getName() << "stats: " << endl;
+        cout << "Win rate: " << (double)winCounter1 / turnCounter << endl;
+        cout << "cards won: " << first_player.cardesTaken() << endl;
+        cout << "draw rate: " << (double)drawCounter / turnCounter << endl;
+        cout << "Amount of draws: " << drawCounter << endl;
 
-    cout << "Second player stats: " << second_player.getName() << endl;
-    cout << "Win rate: " << (double)winCounter2 / turnCounter << endl;
-    cout << "cards won: " << second_player.cardesTaken() << endl;
-    cout << "draw rate: " << (double)drawCounter / turnCounter << endl;
-    cout << "Amount of draws: " << drawCounter << endl;
+        cout << "Second player stats: " << second_player.getName() << endl;
+        cout << "Win rate: " << (double)winCounter2 / turnCounter << endl;
+        cout << "cards won: " << second_player.cardesTaken() << endl;
+        cout << "draw rate: " << (double)drawCounter / turnCounter << endl;
+        cout << "Amount of draws: " << drawCounter << endl;
+    }
+    else
+        throw "No stats to print";
 };
 void Game::shuffle(vector<Card> deck)
 {
@@ -245,7 +258,10 @@ void Game::devide(vector<Card> deck)
         {
             this->first_player.setPile(deck[cardValue]);
         }
-        this->second_player.setPile(deck[cardValue]);
+        else
+        {
+            this->second_player.setPile(deck[cardValue]);
+        }
     }
 }
 int Game::compareTo(Card &card1, Card &card2)

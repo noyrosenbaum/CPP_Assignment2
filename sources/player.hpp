@@ -13,7 +13,6 @@ namespace ariel
         string name;
         int cardisTaken;
         int winCard;
-        bool isParticipate;
         vector<Card> pile;
 
     public:

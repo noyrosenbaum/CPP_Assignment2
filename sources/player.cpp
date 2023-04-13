@@ -10,7 +10,6 @@ namespace ariel
         this->pile.clear();
         this->cardisTaken = 0;
         this->winCard = 0;
-        this->isParticipate = false;
     }
 
     string Player::getName()
