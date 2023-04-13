@@ -18,6 +18,8 @@ namespace ariel
         vector<Card> winCards;
         int turnCounter;
         int drawCounter;
+        int cardCounter1;
+        int cardCounter2;
 
     public:
         Game(Player &p1, Player &p2);

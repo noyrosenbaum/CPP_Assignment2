@@ -41,4 +41,8 @@ namespace ariel
     {
         this->pile.push_back(card);
     }
+    void Player::setCardIsTaken(int counter)
+    {
+        this->cardisTaken = counter;
+    }
 }

@@ -23,5 +23,6 @@ namespace ariel
         string getName();
         Card removeTopCard();
         void setPile(Card card);
+        void setCardIsTaken(int counter);
     };
 };
