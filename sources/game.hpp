@@ -31,9 +31,9 @@ namespace ariel
         void printWiner();
         void printLog();
         void printStats();
-        void shuffle(vector<Card> &deck);
-        void devide(vector<Card> &deck);
-        void initializeDeck(vector<Card> &deck);
+        void shuffle(vector<Card> deck);
+        void devide(vector<Card> deck);
+        void initializeDeck(vector<Card> deck);
         int compareTo(Card &card1, Card &card2);
     };
 }

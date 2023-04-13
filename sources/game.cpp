@@ -13,7 +13,6 @@ Game::Game(Player &p1, Player &p2) : first_player(p1), second_player(p2)
     cardCounter2 = 0;
     winCounter1 = 0;
     winCounter2 = 0;
-    winCards.empty();
     this->drawCounter = 0;
     this->first_player = p1;
     this->second_player = p2;
@@ -134,33 +133,6 @@ void Game::playTurn()
         {
             throw "Unexpected result from compareTo function";
         }
-
-        // log += "Draw: " + this->first_player.getName() + " put " + hiddenCard1.getSign() + " face down and drew " + newCard1.getSign() + ", " + this->second_player.getName() + " put " + hiddenCard2.getSign() + " face down and drew " + newCard2.getSign() + ". ";
-        // int result2 = compareTo(newCard1, newCard2);
-        // if (result2 == 1)
-        // {
-        //     cout << this->first_player.getName() << " won the draw!" << endl;
-        //     this->first_player.setPile(card1);
-        //     this->first_player.setPile(card2);
-        //     this->first_player.setPile(hiddenCard1);
-        //     this->first_player.setPile(hiddenCard2);
-        //     this->first_player.setPile(newCard1);
-        //     this->first_player.setPile(newCard2);
-        // }
-        // else if (result2 == -1)
-        // {
-        //     cout << this->second_player.getName() << " won the draw!" << endl;
-        //     this->second_player.setPile(card1);
-        //     this->second_player.setPile(card2);
-        //     this->second_player.setPile(hiddenCard1);
-        //     this->second_player.setPile(hiddenCard2);
-        //     this->second_player.setPile(newCard1);
-        //     this->second_player.setPile(newCard2);
-        // }
-        // else
-        // {
-        //     throw "Unexpected result from compareTo function";
-        // }
     }
     // First player wins normal turn
     else if (result == 1)
@@ -247,11 +219,11 @@ void Game::printStats()
     cout << "draw rate: " << (double)drawCounter / turnCounter << endl;
     cout << "Amount of draws: " << drawCounter << endl;
 };
-void Game::shuffle(vector<Card> &deck)
+void Game::shuffle(vector<Card> deck)
 {
     random_shuffle(deck.begin(), deck.end());
 };
-void initializeDeck(vector<Card> &deck)
+void Game::initializeDeck(vector<Card> deck)
 {
     if (!deck.empty())
     {
@@ -265,9 +237,9 @@ void initializeDeck(vector<Card> &deck)
         deck.push_back((Card(Spades, values(value))));
     }
 }
-void Game::devide(vector<Card> &deck)
+void Game::devide(vector<Card> deck)
 {
-    for (int cardValue = 0; cardValue < deck.size(); cardValue++)
+    for (size_t cardValue = 0; cardValue < deck.size(); cardValue++)
     {
         if (cardValue % 2)
         {
@@ -276,7 +248,7 @@ void Game::devide(vector<Card> &deck)
         this->second_player.setPile(deck[cardValue]);
     }
 }
-int compareTo(Card &card1, Card &card2)
+int Game::compareTo(Card &card1, Card &card2)
 // ace wins everyone besides 2, 2 wins ace but loses everyone else
 // 1 - win
 // 0 - tie
