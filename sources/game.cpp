@@ -29,6 +29,7 @@ void Game::playTurn()
     this->turnCounter++;
     Card card1 = this->first_player.removeTopCard();
     Card card2 = this->second_player.removeTopCard();
+    // Push cards into winner's card pile per turn
     winCards.push_back(card1);
     winCards.push_back(card2);
     string log = this->first_player.getName() + "played " + card1.getSign() + this->second_player.getName() + "played " + card2.getSign();
@@ -42,48 +43,62 @@ void Game::playTurn()
         if (this->first_player.stacksize() == 0 || this->second_player.stacksize() == 0)
             return;
 
-        // Draw round
         Card hiddenCard1 = this->first_player.removeTopCard();
         Card hiddenCard2 = this->second_player.removeTopCard();
         Card openCard1 = this->first_player.removeTopCard();
         Card openCard2 = this->second_player.removeTopCard();
+        // Push cards into winner's card pile when there's a tie
+        winCards.push_back(hiddenCard1);
+        winCards.push_back(hiddenCard2);
+        winCards.push_back(openCard1);
+        winCards.push_back(openCard2);
         int tieResult = compareTo(openCard1, openCard2);
-        // Tie once again
+        // Tie results
         if (tieResult == 0)
         {
-            cout << "Draw! Continuing with another draw round..." << endl;
-            this->drawCounter++;
-            if (this->first_player.stacksize() > 0)
+            // gets out of this condition if one of the players takes the whole pile
+            if (!winCards.empty())
             {
-                Card newCard1 = this->first_player.removeTopCard();
-                this->first_player.setPile(newCard1);
+                // gets out of this loop when there are no cards left
+                while (this->first_player.stacksize() > 0 && this->second_player.stacksize() > 0)
+                {
+                    cout << "Draw! Continuing with another draw round..." << endl;
+                    this->drawCounter++;
+                    if (this->first_player.stacksize() > 0)
+                    {
+                        Card newCard1 = this->first_player.removeTopCard();
+                        this->first_player.setPile(newCard1);
+                    }
+                    if (this->second_player.stacksize() > 0)
+                    {
+                        Card newCard2 = this->second_player.removeTopCard();
+                        this->second_player.setPile(newCard2);
+                    }
+                    return;
+                }
             }
-            if (this->second_player.stacksize() > 0)
-            {
-                Card newCard2 = this->second_player.removeTopCard();
-                this->second_player.setPile(newCard2);
-            }
-            playTurn();
-            return;
         }
-        // First player wins
+        // First player wins the tie
         if (tieResult == 1)
         {
-            // Card newCard1 = this->first_player.removeTopCard();
-            // Card newCard2 = this->second_player.removeTopCard();
+            // Wins 6 cards
+            cout << this->first_player.getName() << " won the turn!" << endl;
             for (Card win : winCards)
             {
                 this->first_player.setPile(win);
             }
             winCards.clear();
         }
-        // Second player wins
+        // Second player wins the tie
         else if (tieResult == -1)
         {
-            lesserCard = hiddenCard1;
-            greaterCard = hiddenCard2;
-            newCard1 = this->second_player.removeTopCard();
-            newCard2 = this->first_player.removeTopCard();
+            // Wins 6 cards
+            cout << this->second_player.getName() << " won the turn!" << endl;
+            for (Card win : winCards)
+            {
+                this->second_player.setPile(win);
+            }
+            winCards.clear();
         }
         else
         {
@@ -117,17 +132,25 @@ void Game::playTurn()
             throw "Unexpected result from compareTo function";
         }
     }
+    // First player wins normal turn
     else if (result == 1)
     {
         cout << this->first_player.getName() << " won the turn!" << endl;
-        this->first_player.setPile(card1);
-        this->first_player.setPile(card2);
+        for (Card win : winCards)
+        {
+            this->first_player.setPile(win);
+        }
+        winCards.clear();
     }
+    // Second player wins normal turn
     else if (result == -1)
     {
         cout << this->second_player.getName() << " won the turn!" << endl;
-        this->second_player.setPile(card1);
-        this->second_player.setPile(card2);
+        for (Card win : winCards)
+        {
+            this->second_player.setPile(win);
+        }
+        winCards.clear();
     }
     else
     {
