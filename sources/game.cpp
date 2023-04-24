@@ -6,6 +6,7 @@
 using namespace std;
 using namespace ariel;
 
+// takes two parameters, which are references to objects of a Player, and it initializes two member variables of the Game 
 Game::Game(Player &p1, Player &p2) : first_player(p1), second_player(p2)
 {
     turnCounter = 0;

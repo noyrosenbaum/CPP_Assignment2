@@ -1,9 +1,10 @@
 {
-    "files.associations": {
-        "*.tcc": "cpp",
-        "functional": "cpp",
-        "ciso646": "cpp",
-        "iostream": "cpp"
-    },
-    "C_Cpp.errorSquiggles": "disabled"
+  "files.associations": {
+    "*.tcc": "cpp",
+    "functional": "cpp",
+    "ciso646": "cpp",
+    "iostream": "cpp",
+    "card.hpp": "c"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
 }
